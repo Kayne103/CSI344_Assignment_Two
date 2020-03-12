@@ -104,8 +104,42 @@ def breadthFirstSearch(problem):
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    #get the start state
+    start=problem.getStartState()
+    #Find the start node
+    node=(start,problem.getCostOfActions([]),[])
+    #Number of nodes generated
+    genNodes = 0
+    #keep track of visited nodes
+    closed=set()
+    #Add the start node to the node list nodeList
+    nodeList = [(startnode)]
+    while True:
+            #check if the nodelist is empty and return not found if it is 
+            if len(nodeList)==0:
+                return None
+            #select the first node in nodelist
+            Node = nodeList[0]
+            action=Node[2]
+            cost=Node[1]
+            #set the nodelist to rest(nodelist)
+            nodeList=nodeList[1:]
+            if Node[0] not in closed:    
+                #add the state of the node to the closed set as already expanded 
+                closed.add(Node[0])
+                #Check if the first node is the goal 
+                if problem.isGoalState(Node[0]):
+                    #return the path, cost of the path and the generated nodes
+                    return [Node[2],Node[1],genNodes]
+                #generate the successors of the node and append them to the list
+                nodeSucc = problem.getSuccessors(Node[0])
+                genNodes = genNodes + 1
+                for item in nodeSucc:
+                    nodeList = nodeList + [(item[0],cost+(item[2]+problem.getCostOfActions(action+[item[1]])),action+[item[1]])]
+                #sort the nodelist in ascending order
+                nodeList=sorted(nodeList, key=lambda tup:tup[1])
+    
+    
 
 def nullHeuristic(state, problem=None):
     """
@@ -116,7 +150,7 @@ def nullHeuristic(state, problem=None):
 
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
-    "*** YOUR CODE HERE ***"
+    
     
     #Get the start state
     startState = problem.getStartState()
@@ -129,9 +163,8 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     
     #Cost to goal of the start state
     hcost = heuristic(startState, problem)
-    
-    action = []
-    startnode = (startState, hcost, action)
+    #find the starting node
+    startnode = (startState, hcost, [])
     
     #Add the start node to the node list nodeList
     nodeList = [(startnode)]
