@@ -114,6 +114,7 @@ class EightPuzzleState:
         NOTE: This function *does not* change the current object.  Instead,
         it returns a new object.
         """
+		
         row, col = self.blankLocation
         if(move == 'up'):
             newrow = row - 1
@@ -257,11 +258,33 @@ if __name__ == '__main__':
 
     problem = EightPuzzleSearchProblem(puzzle)
     
-    #path = search.breadthFirstSearch(problem)
     
-    #A* SEARCH ALGORITHM
-    
+    print "**************************** Uniform Cost Search ************************"
+	#Uniform cost algorithm
+    uresult = search.uniformCostSearch(problem)
+	
+	#store the path in upath
+    upath = uresult[0]
+	
+	#store the number of nodes generated in ugenNodes
+    ugenNodes = uresult[2]
+	
+	#store the cost in ucost
+    ucost = uresult[1]
+    print('Uniform cost Search found a path of %d moves: %s' % (len(upath), str(upath)))
+    curr = puzzle
+    i = 1
+    for a in upath:
+        curr = curr.result(a)
+        print('After %d move%s: %s' % (i, ("", "s")[i>1], a))
+        print(curr)
+
+        raw_input("Press return for the next state...")   # wait for key stroke
+        i += 1
+		
+	
     print "**************************** A* SEARCH*********************************"
+	#A* SEARCH ALGORITHM
     result=search.aStarSearch(problem)
     
     #Store the path in apath
@@ -285,3 +308,4 @@ if __name__ == '__main__':
         i += 1
     ##Comparison of the 2 search algorithms
     print("A* Solution Cost: %d | Number of nodes generated: %d" % (acost, genNodes))
+    print("Uniform Solution Cost: %d | Number of nodes generated: %d" % (ucost, ugenNodes))
