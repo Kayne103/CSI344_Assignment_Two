@@ -113,7 +113,7 @@ def uniformCostSearch(problem):
     #keep track of visited nodes
     closed=set()
     #Add the start node to the node list nodeList
-    nodeList = [(startnode)]
+    nodeList = [(node)]
     while True:
             #check if the nodelist is empty and return not found if it is 
             if len(nodeList)==0:
