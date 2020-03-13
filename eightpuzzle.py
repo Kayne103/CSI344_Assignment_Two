@@ -310,3 +310,4 @@ if __name__ == '__main__':
     ##Comparison of the 2 search algorithms
     print("A* Solution Cost: %d | Number of nodes generated: %d" % (acost, genNodes))
     print("Uniform Solution Cost: %d | Number of nodes generated: %d" % (ucost, ugenNodes))
+    print("A* is better due to its completeness, optimality, and optimal efficiency such that it aims at finding   a path to the given goal node having the smallest cost while Uniform-cost search doesn’t care about the number of steps a path has, but only the total path cost. It will get stuck in an infinite loop if there’s a path with infinite sequence of zero-cost actions  ")
