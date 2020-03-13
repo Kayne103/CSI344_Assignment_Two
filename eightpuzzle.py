@@ -252,6 +252,7 @@ def createRandomEightPuzzle(moves=100):
     return puzzle
 
 if __name__ == '__main__':
+    random.seed(1)
     puzzle = createRandomEightPuzzle(25)
     print('A random puzzle:')
     print(puzzle)
